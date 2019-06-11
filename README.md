@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Moody
 
 **Moody** is your very own personal mental health assistant. Whether you are sad, angry or depressed, Moody will have a a music/video suggestion for you that will immediately brighten up your day. 
@@ -63,3 +64,7 @@ $ python <WORKER>.py
 ## Motivation 
 
 This project was carried out by students from R.V College of Engineering as a part of the IBM Hack Challenge.
+=======
+# call-for-code
+IBM Call For Code 2019 
+>>>>>>> 96340d393ed42a7f00368cda9681270600671a7f
