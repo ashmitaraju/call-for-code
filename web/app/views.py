@@ -5,32 +5,67 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import conn
 import ibm_db
 import os
+import time 
 
 conn = ibm_db.connect("DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=fkk32348;PWD=kzpx8xvfvg-4642k","fkk32348","kzpx8xvfvg-4642k")
-
+email = 'ashmita.raju@gmail.com'
 @app.route('/')
 def index():
-    return render_template('index.html',title='ISL | Home')
+    return render_template('index.html',
+                           title='ISL | Home')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        login_data = request.form.to_dict()
+        print(login_data)
+        email = login_data['email']
+        time.sleep(2)
+        return redirect(url_for('dashboard'))
+    return render_template('login.html', title='ISL | Login')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have logged out.')
+    return redirect(url_for('login'))
+
 
 @app.route('/dashboard')
 def dashboard():
     
-    return render_template('dashboard.html')
+    return render_template('dashboard.html' , email=email)
 
 @app.route('/satellite')
 def satellite():
-    return "satellite"
+    return render_template('satellite.html')
 
 @app.route('/inventory')
 def inventory():
 
-    stmt = ibm_db.exec_immediate(conn, "UPDATE SURVEY SET LAT=34.55 WHERE id = 1")
-    return "inventory"
+    stmt = ibm_db.exec_immediate(conn, "SELECT * FROM SUPPLY")
+    dict_list = []
+    dictionary = ibm_db.fetch_assoc(stmt)
+    while dictionary != False:
+        dict_list.append(dictionary)
+        dictionary = ibm_db.fetch_assoc(stmt)
+    print(dict_list)
+    
+    return render_template('inventory.html', list=dict_list, email=email)
 
-@app.route('/heatmap')
-def heatmap():
-    return "heatmap"
+@app.route('/add_item', methods=['GET','POST'])
+def add_item(): 
+    
+    if request.method == 'POST':
+        add_item_request = request.form.to_dict()
+        print(add_item_request)
+        stmt = ibm_db.exec_immediate(conn, "UPDATE SUPPLY SET STOCK_COUNT= " + add_item_request['id'] + " WHERE ID= " + add_item_request['items'])
+    return render_template('add.html', title='ISL | Add Items')
 
+@app.route('/map')
+def map(): 
+    return render_template('map.html') 
 
 #######Prevents cacehing of static files in the browser#######
 @app.context_processor
