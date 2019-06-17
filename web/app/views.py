@@ -54,15 +54,6 @@ def inventory():
     
     return render_template('inventory.html', list=dict_list, email=email)
 
-@app.route('/add_item', methods=['GET','POST'])
-def add_item(): 
-    
-    if request.method == 'POST':
-        add_item_request = request.form.to_dict()
-        print(add_item_request)
-        stmt = ibm_db.exec_immediate(conn, "UPDATE SUPPLY SET STOCK_COUNT= " + add_item_request['id'] + " WHERE ID= " + add_item_request['items'])
-    return render_template('add.html', title='ISL | Add Items')
-
 @app.route('/map')
 def map(): 
     return render_template('map.html') 

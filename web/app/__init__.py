@@ -2,7 +2,6 @@
 from flask import Flask
 from flask_login import LoginManager
 import json
-import yaml 
 import os
 import ibm_db
 
