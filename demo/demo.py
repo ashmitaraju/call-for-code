@@ -151,7 +151,7 @@ def imageCompare(first, second):
         import matplotlib.image as mpimg
         img=mpimg.imread('./static/images/final3.png')
         before=mpimg.imread('./static/images/before.jpg')
-        after=mpimg.imread('.static/images/after.jpg')
+        after=mpimg.imread('./static/images/after.jpg')
         fig = plt.figure(figsize=(21, 7))
         ax1 = fig.add_subplot(1, 3, 1)
         plt.imshow(before)
@@ -626,11 +626,11 @@ def road_detection(fname):
     # cv2.imshow('Road Detection',dst)
     # cv2.waitKey(0)
 
-    cv2.imwrite(r"../static/images/road2.jpg",dst)
+    cv2.imwrite(r"./static/images/road2.jpg",dst)
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
-    img=mpimg.imread('../static/images/flooded2.jpg')
-    img2=mpimg.imread('../static/images/road2.jpg')
+    img=mpimg.imread('./static/images/flooded2.jpg')
+    img2=mpimg.imread('./static/images/road2.jpg')
     fig = plt.figure(figsize=(10, 5))
     ax1 = fig.add_subplot(1, 2, 1)
     ax1.title.set_text('Before')
