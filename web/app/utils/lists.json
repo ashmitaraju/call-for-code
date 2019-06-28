@@ -1,0 +1,20 @@
+{
+    "LANGS": [
+        "Tamil",
+        "Kannada",
+        "English",
+        "Telugu",
+        "Hindi",
+        "Malayalam"
+    ],
+    "ARTISTS": [
+        "Drake",
+        "Khalid",
+        "Eminem",
+        "Sia",
+        "Ed Sheeran", 
+        "David Guetta", 
+        "Imagine Dragons", 
+        "Maroon 5"
+    ]
+}
